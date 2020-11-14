@@ -1,0 +1,67 @@
+﻿@model OnlineBanking.Models.complain
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Admin/_LayoutPage1.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>complain</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ComplainTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComplainTo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ComplainFrom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComplainFrom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Complain_Subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Complain_Subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescriptionMsg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescriptionMsg)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customer.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customer.FirstName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Complain_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

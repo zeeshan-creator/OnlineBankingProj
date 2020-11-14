@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OnlineBankingDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="Account_Id" />
+          </Key>
+          <Property Name="Account_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account_Type" Type="varchar" MaxLength="30" />
+          <Property Name="Min_Balance" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="40" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="complain">
+          <Key>
+            <PropertyRef Name="Complain_Id" />
+          </Key>
+          <Property Name="Complain_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ComplainTo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ComplainFrom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Complain_Subject" Type="varchar(max)" Nullable="false" />
+          <Property Name="DescriptionMsg" Type="varchar" MaxLength="100" />
+          <Property Name="Date" Type="varchar" MaxLength="100" />
+          <Property Name="Customer_id" Type="int" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="Customer_Id" />
+          </Key>
+          <Property Name="Customer_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Age" Type="bigint" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CNIC" Type="bigint" Nullable="false" />
+          <Property Name="DateOfBirth" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Account_No" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccountTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="fundtransfer">
+          <Key>
+            <PropertyRef Name="FundTransferId" />
+          </Key>
+          <Property Name="FundTransferId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Debit_Amount" Type="money" Nullable="false" />
+          <Property Name="Credit_Amount" Type="money" Nullable="false" />
+          <Property Name="date" Type="varchar(max)" />
+          <Property Name="CustumerId" Type="int" />
+        </EntityType>
+        <EntityType Name="loan">
+          <Key>
+            <PropertyRef Name="Loan_Id" />
+          </Key>
+          <Property Name="Loan_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_Id" Type="int" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="Duration" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StartDate" Type="varchar(max)" />
+          <Property Name="MonthlyInstallment" Type="varchar" MaxLength="50" />
+          <Property Name="Month" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <Association Name="FK__complain__Custom__29572725">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="complain" Type="Self.complain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="complain">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__customer__Accoun__267ABA7A">
+          <End Role="AccountType" Type="Self.AccountType" Multiplicity="1" />
+          <End Role="customer" Type="Self.customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountType">
+              <PropertyRef Name="Account_Id" />
+            </Principal>
+            <Dependent Role="customer">
+              <PropertyRef Name="AccountTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__fundtrans__Custu__2E1BDC42">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="fundtransfer" Type="Self.fundtransfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="fundtransfer">
+              <PropertyRef Name="CustumerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnlineBankingDBModelStoreContainer">
+          <EntitySet Name="AccountType" EntityType="Self.AccountType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="complain" EntityType="Self.complain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="fundtransfer" EntityType="Self.fundtransfer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="loan" EntityType="Self.loan" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__complain__Custom__29572725" Association="Self.FK__complain__Custom__29572725">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="complain" EntitySet="complain" />
+          </AssociationSet>
+          <AssociationSet Name="FK__customer__Accoun__267ABA7A" Association="Self.FK__customer__Accoun__267ABA7A">
+            <End Role="AccountType" EntitySet="AccountType" />
+            <End Role="customer" EntitySet="customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__fundtrans__Custu__2E1BDC42" Association="Self.FK__fundtrans__Custu__2E1BDC42">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="fundtransfer" EntitySet="fundtransfer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnlineBankingDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="Account_Id" />
+          </Key>
+          <Property Name="Account_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_Type" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Min_Balance" Type="Int64" />
+          <NavigationProperty Name="customers" Relationship="Self.FK__customer__Accoun__267ABA7A" FromRole="AccountType" ToRole="customer" />
+        </EntityType>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="complain">
+          <Key>
+            <PropertyRef Name="Complain_Id" />
+          </Key>
+          <Property Name="Complain_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ComplainTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ComplainFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Complain_Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DescriptionMsg" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Customer_id" Type="Int32" />
+          <NavigationProperty Name="customer" Relationship="Self.FK__complain__Custom__29572725" FromRole="complain" ToRole="customer" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="Customer_Id" />
+          </Key>
+          <Property Name="Customer_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Age" Type="Int64" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CNIC" Type="Int64" Nullable="false" />
+          <Property Name="DateOfBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Account_No" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AccountTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AccountType" Relationship="Self.FK__customer__Accoun__267ABA7A" FromRole="customer" ToRole="AccountType" />
+          <NavigationProperty Name="complains" Relationship="Self.FK__complain__Custom__29572725" FromRole="customer" ToRole="complain" />
+          <NavigationProperty Name="fundtransfers" Relationship="Self.FK__fundtrans__Custu__2E1BDC42" FromRole="customer" ToRole="fundtransfer" />
+        </EntityType>
+        <EntityType Name="fundtransfer">
+          <Key>
+            <PropertyRef Name="FundTransferId" />
+          </Key>
+          <Property Name="FundTransferId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Debit_Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Credit_Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="date" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CustumerId" Type="Int32" />
+          <NavigationProperty Name="customer" Relationship="Self.FK__fundtrans__Custu__2E1BDC42" FromRole="fundtransfer" ToRole="customer" />
+        </EntityType>
+        <EntityType Name="loan">
+          <Key>
+            <PropertyRef Name="Loan_Id" />
+          </Key>
+          <Property Name="Loan_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_Id" Type="Int32" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Duration" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StartDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MonthlyInstallment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Month" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__customer__Accoun__267ABA7A">
+          <End Role="AccountType" Type="Self.AccountType" Multiplicity="1" />
+          <End Role="customer" Type="Self.customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountType">
+              <PropertyRef Name="Account_Id" />
+            </Principal>
+            <Dependent Role="customer">
+              <PropertyRef Name="AccountTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__complain__Custom__29572725">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="complain" Type="Self.complain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="complain">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__fundtrans__Custu__2E1BDC42">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="fundtransfer" Type="Self.fundtransfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="fundtransfer">
+              <PropertyRef Name="CustumerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnlineBankingDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountTypes" EntityType="Self.AccountType" />
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="complains" EntityType="Self.complain" />
+          <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="fundtransfers" EntityType="Self.fundtransfer" />
+          <EntitySet Name="loans" EntityType="Self.loan" />
+          <AssociationSet Name="FK__customer__Accoun__267ABA7A" Association="Self.FK__customer__Accoun__267ABA7A">
+            <End Role="AccountType" EntitySet="AccountTypes" />
+            <End Role="customer" EntitySet="customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__complain__Custom__29572725" Association="Self.FK__complain__Custom__29572725">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="complain" EntitySet="complains" />
+          </AssociationSet>
+          <AssociationSet Name="FK__fundtrans__Custu__2E1BDC42" Association="Self.FK__fundtrans__Custu__2E1BDC42">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="fundtransfer" EntitySet="fundtransfers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnlineBankingDBModelStoreContainer" CdmEntityContainer="OnlineBankingDBEntities">
+          <EntitySetMapping Name="AccountTypes">
+            <EntityTypeMapping TypeName="OnlineBankingDBModel.AccountType">
+              <MappingFragment StoreEntitySet="AccountType">
+                <ScalarProperty Name="Account_Id" ColumnName="Account_Id" />
+                <ScalarProperty Name="Account_Type" ColumnName="Account_Type" />
+                <ScalarProperty Name="Min_Balance" ColumnName="Min_Balance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="OnlineBankingDBModel.Admin">
+              <MappingFragment StoreEntitySet="Admins">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="complains">
+            <EntityTypeMapping TypeName="OnlineBankingDBModel.complain">
+              <MappingFragment StoreEntitySet="complain">
+                <ScalarProperty Name="Complain_Id" ColumnName="Complain_Id" />
+                <ScalarProperty Name="ComplainTo" ColumnName="ComplainTo" />
+                <ScalarProperty Name="ComplainFrom" ColumnName="ComplainFrom" />
+                <ScalarProperty Name="Complain_Subject" ColumnName="Complain_Subject" />
+                <ScalarProperty Name="DescriptionMsg" ColumnName="DescriptionMsg" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="OnlineBankingDBModel.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Account_No" ColumnName="Account_No" />
+                <ScalarProperty Name="AccountTypeId" ColumnName="AccountTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fundtransfers">
+            <EntityTypeMapping TypeName="OnlineBankingDBModel.fundtransfer">
+              <MappingFragment StoreEntitySet="fundtransfer">
+                <ScalarProperty Name="FundTransferId" ColumnName="FundTransferId" />
+                <ScalarProperty Name="Debit_Amount" ColumnName="Debit_Amount" />
+                <ScalarProperty Name="Credit_Amount" ColumnName="Credit_Amount" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="CustumerId" ColumnName="CustumerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="loans">
+            <EntityTypeMapping TypeName="OnlineBankingDBModel.loan">
+              <MappingFragment StoreEntitySet="loan">
+                <ScalarProperty Name="Loan_Id" ColumnName="Loan_Id" />
+                <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="MonthlyInstallment" ColumnName="MonthlyInstallment" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

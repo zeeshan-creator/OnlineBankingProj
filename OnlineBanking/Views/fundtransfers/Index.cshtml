@@ -1,0 +1,52 @@
+﻿@model IEnumerable<OnlineBanking.Models.fundtransfer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Admin/_LayoutPage1.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Debit_Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Credit_Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customer.FirstName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Debit_Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Credit_Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.customer.FirstName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FundTransferId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.FundTransferId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FundTransferId })
+        </td>
+    </tr>
+}
+
+</table>

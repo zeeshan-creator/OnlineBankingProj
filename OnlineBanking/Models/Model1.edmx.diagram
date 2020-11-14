@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="307de757cb2b4cdeba4fde58a3b3a859" Name="Diagram1">
+        <EntityTypeShape EntityType="OnlineBankingDBModel.AccountType" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineBankingDBModel.Admin" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineBankingDBModel.complain" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineBankingDBModel.customer" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineBankingDBModel.fundtransfer" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineBankingDBModel.loan" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="OnlineBankingDBModel.FK__customer__Accoun__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineBankingDBModel.FK__complain__Custom__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineBankingDBModel.FK__fundtrans__Custu__2E1BDC42" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -10,7 +10,6 @@ using OnlineBanking.Models;
 
 namespace OnlineBanking.Controllers
 {
-    [Authorize]
     public class customersController : Controller
     {
         private OnlineBankingDBEntities db = new OnlineBankingDBEntities();

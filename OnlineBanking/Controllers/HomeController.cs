@@ -48,11 +48,9 @@ namespace OnlineBanking.Controllers
             return View(data);
         }
 
-        public ActionResult LogOut()
+        public ActionResult Login()
         {
-            Session.Abandon();
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index");
+            return View();
         }
 
         [HttpPost]
@@ -61,7 +59,9 @@ namespace OnlineBanking.Controllers
             if (ModelState.IsValid)
             {
                 var email = db.customers.Where(x => x.Email == data.Email).SingleOrDefault();
-                var password = db.customers.Where(x => x.Email == data.Password && x.Password == data.Password).SingleOrDefault();
+                var password = db.customers.Where(x => x.Email == data.Email && x.Password == data.Password).SingleOrDefault();
+
+                
 
                 if (email == null)
                 {
@@ -74,7 +74,6 @@ namespace OnlineBanking.Controllers
                     if (password == null)
                     {
                         TempData["msg"] = "Password Is Wrong..!";
-
                         return View();
                     }
 
@@ -82,6 +81,7 @@ namespace OnlineBanking.Controllers
 
 
                     Session["user"] = user.FirstName;
+                    Session["id"] = user.Customer_Id;
                     ViewBag.User = user;
 
                     FormsAuthentication.SetAuthCookie(user.FirstName,false);
@@ -103,4 +103,5 @@ namespace OnlineBanking.Controllers
             return RedirectToAction("Index");
         }
     }
+
 }

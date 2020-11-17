@@ -100,7 +100,15 @@
                                         <li><a class="icon mdi mdi-twitter" href="#"></a></li>
                                         <li><a class="icon mdi mdi-instagram" href="#"></a></li>
                                         <li><a class="icon mdi mdi-google-plus" href="#"></a></li>
-                                        <li><a class="icon mdi mdi-login" href="/home/Signup"></a></li>
+
+                                        @if (Session["user"] != null)
+                                        {
+                                            <li><a class="icon mdi mdi-logout" href="/home/logout"></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a class="icon mdi mdi-login" href="/home/login"></a></li>
+                                        }
                                     </ul>
                                 </div>
                                 <div class="rd-navbar-main">

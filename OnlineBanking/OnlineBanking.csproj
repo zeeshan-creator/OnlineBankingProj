@@ -332,7 +332,6 @@
     <Content Include="src\scss\variables\_spacing.scss" />
     <Content Include="src\scss\_global.scss" />
     <Content Include="src\scss\_variables.scss" />
-    <Content Include="Views\Admin\_LayoutPage1.cshtml" />
     <Content Include="scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\AccountTypes\Create.cshtml" />
@@ -358,6 +357,7 @@
     <Content Include="Views\customers\Details.cshtml" />
     <Content Include="Views\customers\Edit.cshtml" />
     <Content Include="Views\customers\Index.cshtml" />
+    <Content Include="Views\Home\fetchaccount.cshtml" />
     <None Include="Views\Home\index.cshtml" />
     <Content Include="js\scripts.js" />
     <Content Include="Models\Model1.Context.tt">
@@ -456,6 +456,7 @@
     <Content Include="Views\Layout\_layout.cshtml" />
     <Content Include="Views\Home\signup.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Layout\_webLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

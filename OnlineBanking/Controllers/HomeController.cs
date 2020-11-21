@@ -56,44 +56,26 @@ namespace OnlineBanking.Controllers
         [HttpPost]
         public ActionResult Login(customer data)
         {
-            if (ModelState.IsValid)
+            var res = db.customers.Where(a => a.FirstName == data.FirstName && a.LastName == data.LastName).SingleOrDefault();
+            if (res != null)
             {
-                var email = db.customers.Where(x => x.Email == data.Email).SingleOrDefault();
-                var password = db.customers.Where(x => x.Email == data.Email && x.Password == data.Password).SingleOrDefault();
-
-                
-
-                if (email == null)
-                {
-                    TempData["msg"] = "Email Doesn't Exist";
-                    return View();
-                }
-
-                if (email != null)
-                {
-                    if (password == null)
-                    {
-                        TempData["msg"] = "Password Is Wrong..!";
-                        return View();
-                    }
-
-                    var user = db.customers.Where(x => x.Email == data.Email).SingleOrDefault();
-
-
-                    Session["user"] = user.FirstName;
-                    Session["id"] = user.Customer_Id;
-                    ViewBag.User = user;
-
-                    FormsAuthentication.SetAuthCookie(user.FirstName,false);
-                    Session["userEmail"] = user.Email;
-                    return RedirectToAction("Index");
-                }
-
+                Session["id"] = res.AccountTypeId;
+                return RedirectToAction("fetchaccount");
             }
-                TempData["somethingWentWrong"] = "Something Went Wrong";
 
-                return View();
+            else
+            {
+                ViewBag.error = "invalid email and password";
+            }
+            return View();
+        }
+        public ActionResult fetchaccount()
 
+        {
+            int id = Convert.ToInt32(Session["id"]);
+            var res = db.customers.Where(a => a.AccountTypeId == id);
+
+            return View(res);
         }
 
         public ActionResult Logout()
